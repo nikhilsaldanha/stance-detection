@@ -2,3 +2,6 @@
 *
 # Except this file
 !.gitignore
+!external/.gitignore
+!raw/.gitignore
+!processed/.gitignore
