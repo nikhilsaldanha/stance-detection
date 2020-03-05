@@ -1,0 +1,6 @@
+annotators = tokenize,ssplit,pos,depparse
+
+outputFormat = serialized
+
+serializer = edu.stanford.nlp.pipeline.ProtobufAnnotationSerializer
+
