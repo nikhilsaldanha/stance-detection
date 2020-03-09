@@ -54,6 +54,7 @@ wordcloud(data$headline, max.words = 100, random.order = F)
 wordcloud(data$claim, max.words = 100, random.order = F)
 
 #==================================================================
+data = data_cleaned
 stopwords("en")
 length(stopwords("en"))
 neg_stops = c("isn't", "aren't","wasn't","weren't","hasn't","haven't","hadn't",
@@ -66,9 +67,13 @@ stops = setdiff(stops, sup_neg_stops)
 stops
 length(stops)
 
-data_wo_stops = data
-data_wo_stops$claim = removeWords(data_wo_stops$claim, stops)
-data_wo_stops$headline = removeWords(data_wo_stops$headline, stops)
+data_wo_stops = data[, c("articleHeadline", "articleId")]
+data_wo_non_neg_stops = data[, c("articleHeadline", "articleId")]
+data_wo_stops$articleHeadline = removeWords(data_wo_stops$articleHeadline, stopwords("en"))
+data_wo_non_neg_stops$articleHeadline = removeWords(data_wo_non_neg_stops$articleHeadline, stops)
+
+write.csv(data_wo_stops, "headlines_wo_stopwords.csv", row.names = F)
+write.csv(data_wo_non_neg_stops, "headlines_wo_no_nneg_stopwords.csv", row.names = F)
 
 term_count <- freq_terms(data_wo_stops$headline, 30)
 plot(term_count, main = "Cleaned Headline word frequency")
